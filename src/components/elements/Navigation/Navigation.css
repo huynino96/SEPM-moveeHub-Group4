@@ -1,17 +1,19 @@
 .rmdb-navigation {
-  display: flex;
-  align-items: center;
   width: 100%;
-  height: 70px;
+  height: 50px;
   background: #353535;
   color: #fff;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0;
+  padding-top: 10px;
 }
 
 .rmdb-navigation-content {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px;
-  width: 100%;
 }
 
 .rmdb-navigation-content p {
@@ -21,10 +23,5 @@
   color: #fff;
   padding-right: 10px;
   text-decoration: none;
-}
-
-@media screen and (max-width: 768px) {
-  .rmdb-navigation-content p {
-    font-size: 16px;
-  }
+  margin: 0;
 }
