@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Header.css';
+// import './Header.css';
 
 const Header = () => (
-  <div className="rmdb-header">
-    <div className="rmdb-header-content">
-      <Link to="/">
-        <img className="rmdb-logo" src="/images/logo3.png" alt="rmdb-logo" />
-      </Link>
-      {/*<img className="rmdb-tmdb-logo" src="/images/tmdb_logo.png" alt="tmdb-logo" />*/}
-    </div>
+  <div>
+    <nav class="navbar bg-dark navbar-dark">
+      <a class="navbar-brand" href="#">
+        <img src="/images/logo3.png" alt="Logo" style={{width: "120px" }}/>
+      </a>
+    </nav>
   </div>
 )
 
 export default Header;
+
