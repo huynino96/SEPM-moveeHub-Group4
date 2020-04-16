@@ -4,6 +4,7 @@ import Header from '../elements/Header/Header';
 import Home from '../Home/Home';
 import Movie from '../Movie/Movie';
 import NotFound from '../elements/NotFound/NotFound';
+import ForumPage from '../Forum/ForumPage';
 
 const App = () => (
   <BrowserRouter>
@@ -12,6 +13,7 @@ const App = () => (
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/:movieId" component={Movie} exact />
+        <Route path="/:forumPage" component={ForumPage} exact/>
         <Route component={NotFound} />
       </Switch>
     </React.Fragment>
