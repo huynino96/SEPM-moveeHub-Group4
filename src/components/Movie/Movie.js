@@ -94,7 +94,9 @@ class Movie extends Component {
           </FourColGrid>
         </div>
         : null }
-        {loading ? <Spinner /> : null}
+        <div style={{ marginTop: '20rem' }}>
+          {loading ? <Spinner /> : null}
+        </div>
       </div>
     )
   }
