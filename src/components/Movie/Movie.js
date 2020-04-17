@@ -7,6 +7,7 @@ import FourColGrid from '../elements/FourColGrid/FourColGrid.js';
 import Actor from '../elements/Actor/Actor';
 import Spinner from '../elements/Spinner/Spinner';
 import './Movie.css';
+import NotFound from "../elements/NotFound/NotFound";
 
 class Movie extends Component {
   state = {
@@ -71,6 +72,10 @@ class Movie extends Component {
     const { movieName } = this.props.location;
     const { movie, directors, actors, loading } = this.state;
 
+    if (!actors && !loading) {
+      return <NotFound />;
+    }
+
     return (
       <div className="rmdb-movie">
         {movie ?
@@ -89,7 +94,6 @@ class Movie extends Component {
           </FourColGrid>
         </div>
         : null }
-        {!actors && !loading ? <h1>No movie found</h1> : null }
         {loading ? <Spinner /> : null}
       </div>
     )
