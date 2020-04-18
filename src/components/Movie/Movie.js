@@ -12,6 +12,7 @@ import NotFound from "../elements/NotFound/NotFound";
 class Movie extends Component {
   state = {
     movie: null,
+    
     actors: null,
     directors: [],
     loading: false

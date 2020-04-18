@@ -22,6 +22,8 @@ const MovieInfo = ({ movie, directors }) => (
         <h1>{movie.title}</h1>
         <h3>PLOT</h3>
         <p>{movie.overview}</p>
+        {/* <h3>Genres</h3>
+        <p>{movie.genres}</p> */}
         <h3>IMDB RATING</h3>
         <div className="rmdb-rating">
           <meter min="0" max="100" optimum="100" low="40" high="70" value={ movie.vote_average * 10}></meter>
