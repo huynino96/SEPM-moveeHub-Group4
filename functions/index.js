@@ -76,7 +76,7 @@ const isEmail = (email) => {
 };
 
 const isEmpty = (string) => {
-  if (string.trim() === '') {
+  if (string.trim() === "") {
     return true;
   } else {
     return false;
@@ -187,7 +187,13 @@ app.post("/login", (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      return res.status(500).json({ errror: err.code });
+      if (err.code === "auth/wrong-password") {
+        return res
+          .status(403)
+          .json({ general: "Wrong password, please try again" });
+      } else {
+        return res.status(500).json({ errror: err.code });
+      }
     });
 });
 
