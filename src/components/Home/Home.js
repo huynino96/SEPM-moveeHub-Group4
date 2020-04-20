@@ -96,7 +96,7 @@ class Home extends Component {
               title={heroImage.original_title}
               text={heroImage.overview}
             />
-            {/* <SearchBar callback={this.searchItems}/> */}
+            <SearchBar callback={this.searchItems}/>
           </div> : null }
           <div className="rmdb-home-grid">
             <FourColGrid
