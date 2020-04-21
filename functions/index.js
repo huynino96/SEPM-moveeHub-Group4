@@ -43,14 +43,51 @@ app.get("/screams", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+// Function for Authorization 
+
+const FBAuth = (req, res, next) => {
+    let idToken;
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        idToken = req.headers.authorization.split('Bearer ')[1];
+    } else {
+        console.error('No token found');
+        return res.status(403).json({error: 'Unauthorized'});
+    }
+
+    admin.auth().verifyIdToken(idToken)
+    .then(decodedToken => {
+        req.user = decodedToken;
+        console.log(decodedToken);
+        return db.collection('users')
+        .where('userId', '==', req.user.uid)
+        .limit(1)
+        .get();
+    })
+    .then(data => {
+        req.user.handle = data.docs[0].data().handle;
+        return next();
+    })
+    .catch(err => {
+        console.error('Error while verifying token', err);
+        return res.status(403).json(err);
+    })
+}
+
+
 // exports.getScreams = functions.https.onRequest((req, res) => {
 
 // });
 
-app.post("/scream", (req, res) => {
+// POST one scream
+
+app.post("/scream", FBAuth, (req, res) => {
+  if (req.body.body.trim() === '') {
+    return res.status(400).json({ body: "Body must not be empty" });
+  }
+
   const newScream = {
     body: req.body.body,
-    userHandle: req.body.userHandle,
+    userHandle: req.user.handle,
     createAt: new Date().toISOString(),
   };
 
@@ -66,6 +103,7 @@ app.post("/scream", (req, res) => {
     });
 });
 
+// Check Email must be in the correct form. Ex: user@email.com
 const isEmail = (email) => {
   const regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (email.match(regEx)) {
@@ -83,7 +121,7 @@ const isEmpty = (string) => {
   }
 };
 
-// Signup rout
+// Signup Function
 app.post("/signup", (req, res) => {
   const newUser = {
     email: req.body.email,
@@ -94,18 +132,21 @@ app.post("/signup", (req, res) => {
 
   let errors = {};
 
+  // Validate a legal email address
   if (isEmpty(newUser.email)) {
     errors.email = "Must not be empty";
   } else if (!isEmail(newUser.email)) {
     errors.email = "Must be a valid email address";
   }
 
+  // Password must not be empty
   if (isEmpty(newUser.password)) {
     errors.password = "Must not be empty";
   }
 
+  //Password and confirm must match
   if (newUser.password !== newUser.confirmPassword) {
-    errors.confirmPassword = "Password must be matched";
+    errors.confirmPassword = "Password must match";
   }
 
   if (isEmpty(newUser.handle)) {
@@ -147,6 +188,7 @@ app.post("/signup", (req, res) => {
       return res.status(201).json({ token });
     })
 
+    // Check if email is in use or not
     .catch((err) => {
       console.error(err);
       if (err.code === "auth/email-already-in-use") {
@@ -157,6 +199,7 @@ app.post("/signup", (req, res) => {
     });
 });
 
+//Login Function
 app.post("/login", (req, res) => {
   const user = {
     email: req.body.email,
@@ -165,6 +208,7 @@ app.post("/login", (req, res) => {
 
   let errors = {};
 
+  // Check both email and password must be entered
   if (isEmpty(user.email)) {
     errors.email = "Must not be empty";
   }
@@ -185,6 +229,8 @@ app.post("/login", (req, res) => {
     .then((token) => {
       return res.json({ token });
     })
+
+    //Auth Password
     .catch((err) => {
       console.error(err);
       if (err.code === "auth/wrong-password") {
