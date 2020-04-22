@@ -1,4 +1,4 @@
-module.exports = (email) => {
+const isEmail= (email) => {
     const regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email.match(regEx)) {
       return true;
@@ -19,23 +19,23 @@ module.exports = (email) => {
     let errors = {};
   
     // Validate a legal email address
-    if (isEmpty(newUser.email)) {
+    if (isEmpty(data.email)) {
       errors.email = "Must not be empty";
-    } else if (!isEmail(newUser.email)) {
+    } else if (!isEmail(data.email)) {
       errors.email = "Must be a valid email address";
     }
   
     // Password must not be empty
-    if (isEmpty(newUser.password)) {
+    if (isEmpty(data.password)) {
       errors.password = "Must not be empty";
     }
   
     //Password and confirm must match
-    if (newUser.password !== newUser.confirmPassword) {
+    if (data.password !== data.confirmPassword) {
       errors.confirmPassword = "Password must match";
     }
   
-    if (isEmpty(newUser.handle)) {
+    if (isEmpty(data.handle)) {
       errors.handle = "Must not be empty";
     }
 
@@ -49,10 +49,10 @@ module.exports = (email) => {
     let errors = {};
   
     // Check both email and password must be entered
-    if (isEmpty(user.email)) {
+    if (isEmpty(data.email)) {
       errors.email = "Must not be empty";
     }
-    if (isEmpty(user.password)) {
+    if (isEmpty(data.password)) {
       errors.password = "Must not be empty";
     }
   
