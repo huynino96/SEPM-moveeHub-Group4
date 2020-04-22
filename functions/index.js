@@ -7,23 +7,24 @@ const FBAuth = require('./ulti/fbAuth');
 // firebase.initializeApp(config);
 
 const { getAllScreams, postOneScream } = require('./handlers/screams');
-const {signup, login} = require('./handlers/users');
+const {signup, login, uploadImage} = require('./handlers/users');
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 
 // Scream route
-app.get("/screams", getAllScreams);
+app.get('/screams', getAllScreams);
 
 // POST one scream
-app.post("/scream", FBAuth, postOneScream);
+app.post('/scream', FBAuth, postOneScream);
 
 // Signup Function
-app.post("/signup", signup);
+app.post('/signup', signup);
 
 //Login Function
-app.post("/login", login);
+app.post('/login', login);
 
+app.post('/user/image', FBAuth, uploadImage)
 // Function for Authorization 
 
 
@@ -31,12 +32,7 @@ app.post("/login", login);
 
 // });
 
-
-
-// Check Email must be in the correct form. Ex: user@email.com
-
-
-
-
 // https://baseurl.com/api/something
 exports.api = functions.region("asia-east2").https.onRequest(app);
+
+// Deployed API URL: https://asia-east2-socialapp-32fb9.cloudfunctions.net/api/

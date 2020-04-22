@@ -8,7 +8,7 @@ const isEmail= (email) => {
   };
   
   const isEmpty = (string) => {
-    if (string.trim() === "") {
+    if (string.trim() === '') {
       return true;
     } else {
       return false;
@@ -34,7 +34,6 @@ const isEmail= (email) => {
     if (data.password !== data.confirmPassword) {
       errors.confirmPassword = "Password must match";
     }
-    
   
     if (isEmpty(data.handle)) {
       errors.handle = "Must not be empty";
