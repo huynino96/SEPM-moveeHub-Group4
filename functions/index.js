@@ -7,7 +7,7 @@ const FBAuth = require('./ulti/fbAuth');
 // firebase.initializeApp(config);
 
 const { getAllScreams, postOneScream } = require('./handlers/screams');
-const { signup, login, uploadImage } = require('./handlers/users');
+const {signup, login, uploadImage} = require('./handlers/users');
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -25,7 +25,7 @@ app.post('/signup', signup);
 app.post('/login', login);
 
 app.post('/user/image', FBAuth, uploadImage)
-// Function for Authorization
+// Function for Authorization 
 
 
 // exports.getScreams = functions.https.onRequest((req, res) => {
