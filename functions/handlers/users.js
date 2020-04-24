@@ -4,7 +4,11 @@ const config = require("../ulti/config");
 const firebase = require("firebase");
 firebase.initializeApp(config);
 
-const { validateSignupData, validateLoginData } = require("../ulti/validation");
+const {
+  validateSignupData,
+  validateLoginData,
+  reduceUserDetails,
+} = require("../ulti/validation");
 
 exports.signup = (req, res) => {
   const newUser = {
@@ -63,11 +67,9 @@ exports.signup = (req, res) => {
         return res.status(400).json({ email: "Email is already taken" });
       }
       if (err.code === "auth/weak-password") {
-        return res
-          .status(400)
-          .json({
-            password: "Password must content both characters and numbers",
-          });
+        return res.status(400).json({
+          password: "Password must content both characters and numbers",
+        });
       } else {
         return res.status(500).json({ error: err.code });
       }
@@ -109,21 +111,63 @@ exports.login = (req, res) => {
     });
 };
 
+// Add user details
+
+exports.addUserDetails = (req, res) => {
+  let userDetails = reduceUserDetails(req.body);
+  db.doc(`/users/${req.user.handle}`)
+    .update(userDetails)
+    .then(() => {
+      return res.json({ message: "Details added sucessfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+// Get user details
+
+exports.getAuthenticatedUser = (req, res) => {
+  let userData = {};
+  db.doc(`/users/${req.user.handle}`).get()
+  .then(doc => {
+    if(doc.exists){
+      userData.credentials = doc.data();
+      return db.collection('likes').where('userHandle', '==', req.user.handle).get();
+    }
+    return res.json(userData)
+  })
+  .then(data => {
+    userData.likes = []
+    data.forEach( doc => {
+      userData.likes.push(doc.data());
+    });
+    return res.json(userData);
+  })
+  .catch(err => {
+    console.error(err);
+    return res.status(500).json({ error: err.code});
+  })
+}
+
+// Upload Image
 exports.uploadImage = (req, res) => {
-  const BusBoy = require('busboy');
-  const path = require('path');
-  const os = require('os');
-  const fs = require('fs');
+  const BusBoy = require("busboy");
+  const path = require("path");
+  const os = require("os");
+  const fs = require("fs");
 
   const busboy = new BusBoy({ headers: req.headers });
 
   let imageFileName;
   let imageToBeUploaded = {};
 
-  busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-
-    if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
-      return res.status(400).json({error: 'Wrong file type, only jpg and png are accepted'});
+  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+    if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
+      return res
+        .status(400)
+        .json({ error: "Wrong file type, only jpg and png are accepted" });
     }
 
     console.log(fieldname);
@@ -132,7 +176,7 @@ exports.uploadImage = (req, res) => {
 
     // This for getting the last value of the array of image name (aka the extension).
     // For example: my.image.png, we need to get the .png only
-    const imageExtension = filename.split('.')[filename.split('.').length - 1];
+    const imageExtension = filename.split(".")[filename.split(".").length - 1];
 
     // For number.extension. Example: 23466777.png
     imageFileName = `${Math.round(
@@ -146,7 +190,7 @@ exports.uploadImage = (req, res) => {
     file.pipe(fs.createWriteStream(filepath));
   });
 
-  busboy.on('finish', () => {
+  busboy.on("finish", () => {
     admin
       .storage()
       .bucket()
@@ -154,7 +198,7 @@ exports.uploadImage = (req, res) => {
         resumable: false,
         metadata: {
           metadata: {
-            contentType: imageToBeUploaded.mimetype
+            contentType: imageToBeUploaded.mimetype,
           },
         },
       })
