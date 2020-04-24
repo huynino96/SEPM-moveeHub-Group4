@@ -6,7 +6,7 @@ const FBAuth = require('./ulti/fbAuth');
 // const firebase = require('firebase');
 // firebase.initializeApp(config);
 
-const { getAllScreams, postOneScream, getScream } = require('./handlers/screams');
+const { getAllScreams, postOneScream, getScream, commentOnScream, likeScream, unlikeScream } = require('./handlers/screams');
 const {signup, login, uploadImage, addUserDetails, getAuthenticatedUser} = require('./handlers/users');
 
 // // Create and Deploy Your First Cloud Functions
@@ -20,8 +20,12 @@ app.post('/scream', FBAuth, postOneScream);
 
 app.get('/scream/:screamId', getScream);
 
+app.post('/scream/:screamId/comment', FBAuth, commentOnScream);
+
 //TODO: delete scream, like/unlike a scream, comment on scream 
 
+app.get('/scream/:screamId/like', FBAuth, likeScream);
+app.get('/scream/:screamId/unlike', FBAuth, unlikeScream);
 // Signup Function
 app.post('/signup', signup);
 
