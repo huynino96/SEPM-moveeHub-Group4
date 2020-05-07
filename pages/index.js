@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
 import SyncLoader from 'react-spinners/SyncLoader';
 import client from '../client';
 
