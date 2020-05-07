@@ -18,9 +18,8 @@ const Home = ({ carousels, movies }) => {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
-    const handleLoadMoreItems = async () => {
+    const loadMoreItems = async () => {
         try {
-            setLoading(true);
             const { data } = await client.get(MOVIE_URL, { params: { page } });
             const { results, total_pages } = data;
             setMores([ ...mores, ...results ]);
@@ -32,6 +31,11 @@ const Home = ({ carousels, movies }) => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleLoadMoreItems = () => {
+        setLoading(true);
+        setTimeout(async () => await loadMoreItems(), 500);
     };
 
     return (
