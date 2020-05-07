@@ -22,7 +22,6 @@ const Home = ({ carousels, movies }) => {
         try {
             const { data } = await client.get(MOVIE_URL, { params: { page } });
             const { results, total_pages } = data;
-            console.log(page === total_pages);
             setMores([ ...mores, ...results ]);
             setHasMore(page !== total_pages);
             setLoading(true);
