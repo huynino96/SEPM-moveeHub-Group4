@@ -1024,8 +1024,18 @@ a.arrow-button:hover {
 }
 
 .slick-slide {
-    margin: 0 10px 0px 10px;
+    margin: 0 15px;
     text-align: center;
+}
+
+.movie-slide:nth-child(2),
+.movie-slide:nth-child(4n+2) {
+    margin-left: 0;
+}
+
+.movie-slide:nth-child(4n+1) {
+    margin-right: 0;
+    margin-left: 13px;
 }
 
 .slick-slider .slick-arrow {
