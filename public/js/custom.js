@@ -1,19 +1,6 @@
 jQuery(function ($) {
 	"use strict";
 
-	// Headhesive
-	var options = {
-			offset: 600,
-			classes: {
-			clone:   'banner--clone',
-			stick:   'banner--stick',
-			unstick: 'banner--unstick'
-		}
-	};
-
-	// Initialise with options
-	var banner = new Headhesive('.navbar', options);
-
 	// Bootstrap carousel
 	$('.bs-carousel').carousel({
 		interval: 10000,
