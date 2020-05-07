@@ -29,7 +29,7 @@ const Header = () => {
                 <div className="navbar-header">
                     <Link href="/">
                         <a className="logo" title="Hubiee">
-                            <img src="/images/logo.svg" alt="Hubiee" />
+                            <img src="/images/logo.png" alt="Hubiee" />
                         </a>
                     </Link>
                     <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
