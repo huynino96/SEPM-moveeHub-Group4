@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { API_URL, API_KEY, API_LANGUAGE } from '../utils/constants';
+import { IMDB_URL, IMDB_KEY, IMDB_LANGUAGE } from '../utils/constants';
 
 const instance = axios.create({
-    baseURL: API_URL,
+    baseURL: IMDB_URL,
 });
 
 instance.defaults.params = {};
-instance.defaults.params['api_key'] = API_KEY;
-instance.defaults.params['language'] = API_LANGUAGE;
+instance.defaults.params['api_key'] = IMDB_KEY;
+instance.defaults.params['language'] = IMDB_LANGUAGE;
 
 export default instance;
