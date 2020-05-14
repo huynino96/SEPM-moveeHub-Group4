@@ -44,8 +44,8 @@ jQuery(function ($) {
 	});
 
 	// Slick carousel
-	$(window).on('load resize scroll', function(){  
-		
+	$(window).on('load resize scroll', function(){
+
 		$('#newIn').not('.slick-initialized').slick({
 			autoplay: false,
 			autoplaySpeed: 3000,
@@ -147,7 +147,7 @@ jQuery(function ($) {
 			    }
 			  ]
 		});
-		
+
 	});
 
 	// Vertical align navbar
@@ -169,8 +169,8 @@ jQuery(function ($) {
 
 	// Google maps
 	if ($("#map").length > 0){
-		
-			$("#map").gmap3({                        
+
+			$("#map").gmap3({
 			map:{
 				options:{
 					zoom: 14,
@@ -534,7 +534,7 @@ jQuery(function ($) {
 					draggable: true,
 					scrollwheel: false,
 				}
-			}            
+			}
 			,
 			marker:{
 				latLng:[51.513614, -0.136549],
@@ -546,17 +546,6 @@ jQuery(function ($) {
 		});
 
 	}
-
-	// Live movie search
-	var $rows = $('.movie-tabs');
-	jQuery('#search').keyup(function() {
-	    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-	    
-	    $rows.show().filter(function() {
-	        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-	        return !~text.indexOf(val);
-	    }).hide();
-	});
 
 	// Coming soon slide
 	jQuery('.single-slide').first().css({ opacity: '1', height: 'auto', paddingBottom: '60px' }).siblings('.single-slide').css({ opacity: '0', height: '0', paddingBottom: '0' });

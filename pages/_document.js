@@ -31,6 +31,7 @@ class MyDocument extends Document {
                     <script src="/js/matchHeight.min.js" />
                     <script src="/js/modernizr.custom.js" />
                     <script src="/js/slick.min.js" />
+                    <script src="/js/arrive.min.js" />
                     <script src="/js/venobox.min.js" />
                     <script src="/js/4dfd2d448a.js" />
                     <script src="/js/custom.js" />
