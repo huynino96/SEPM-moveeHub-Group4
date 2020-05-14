@@ -5,7 +5,6 @@ import Hero from '../../components/Hero';
 import { MOVIE_URL } from '../../utils/constants';
 import { backdrop, poster } from '../../utils/helpers';
 import Detail from '../../components/Detail';
-import Comment from '../../components/Comment';
 
 const Movies = ({ item, directors, cast }) => (
     <Fragment>
@@ -26,7 +25,6 @@ const Movies = ({ item, directors, cast }) => (
             releaseDate={item.release_date}
             imageUrl={poster(item.poster_path)}
         />
-        <Comment />
     </Fragment>
 );
 
