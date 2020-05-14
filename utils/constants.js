@@ -11,7 +11,7 @@ export const SEARCH_URL = '/search/movie';
 // Images
 // An image URL looks like this example:
 // http://image.tmdb.org/t/p/w780/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg
-export const IMAGE_BASE_URL ='http://image.tmdb.org/t/p/';
+export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/';
 
 // Sizes: w300, w780, w1280, original
 export const BACKDROP_SIZE = 'w1280';
