@@ -547,6 +547,17 @@ jQuery(function ($) {
 
 	}
 
+	// Live movie search
+	var $rows = $('.movie-tabs');
+	jQuery('#search').keyup(function() {
+	    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+	    $rows.show().filter(function() {
+	        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+	        return !~text.indexOf(val);
+	    }).hide();
+	});
+
 	// Coming soon slide
 	jQuery('.single-slide').first().css({ opacity: '1', height: 'auto', paddingBottom: '60px' }).siblings('.single-slide').css({ opacity: '0', height: '0', paddingBottom: '0' });
 	jQuery('#comingSoon div').first().css('opacity', '1').siblings().css('opacity', '.35');

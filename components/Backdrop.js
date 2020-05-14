@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Backdrop = ({ title, subtitle, imageUrl }) => (
+const Backdrop = ({ title, subtitle, imageUrl, scroll }) => (
     <div
         id="content_hero"
         style={{ backgroundImage: `url(${imageUrl})` }}
     >
-        <img src="/images/scroll-arrow.svg" alt="Scroll down" className="scroll" />
+        {scroll && <img src="/images/scroll-arrow.svg" alt="Scroll down" className="scroll" />}
         {/* Content */}
         <div className="container">
             <div
@@ -24,5 +24,9 @@ const Backdrop = ({ title, subtitle, imageUrl }) => (
         </div>
     </div>
 );
+
+Backdrop.defaultProps = {
+    scroll: true,
+};
 
 export default Backdrop;

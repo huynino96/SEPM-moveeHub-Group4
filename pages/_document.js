@@ -33,6 +33,8 @@ class MyDocument extends Document {
                     <script src="/js/slick.min.js" />
                     <script src="/js/arrive.min.js" />
                     <script src="/js/venobox.min.js" />
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzbEe1YItOGVa3h_gT66MTFP056M0xQyo" />
+                    <script src="js/gmap3.min.js" />
                     <script src="/js/4dfd2d448a.js" />
                     <script src="/js/custom.js" />
                 </body>
