@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 
 import Hero from '../../components/Hero';
 
-const Movie = () => {
+const Movies = () => {
     const router = useRouter();
-    const { pid } = router.query;
+    const { id } = router.query;
 
     return (
         <Fragment>
@@ -180,4 +180,4 @@ const Movie = () => {
     );
 };
 
-export default Movie;
+export default Movies;

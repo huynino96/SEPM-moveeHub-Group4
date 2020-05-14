@@ -57,6 +57,7 @@ const Home = ({ carousels, movies }) => {
                 {mores.map((item, index) => (
                     <Poster
                         key={`movie-${index}`}
+                        id={item.id}
                         title={item.title}
                         imageUrl={poster(item.poster_path)}
                         releaseDate={item.release_date}

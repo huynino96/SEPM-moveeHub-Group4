@@ -1,6 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 
-const Poster = ({ title, imageUrl, releaseDate }) => (
+const Poster = ({ id, title, imageUrl, releaseDate }) => (
     <div
         className="movie-slide slick-slide slick-current slick-active"
         data-slick-index={0}
@@ -13,17 +14,16 @@ const Poster = ({ title, imageUrl, releaseDate }) => (
         <div className="movie-poster">
             <aside>
                 <div>
-                    <a
-                        href="https://youtu.be/ScMzIvxBSi4"
-                        data-vbtype="video"
-                        className="venobox play"
-                        tabIndex={0}
-                    >
-                        <i className="material-icons">play_arrow</i>
-                    </a>
-                    <a href="#" className="read-more" tabIndex={0}>
-                        read more
-                    </a>
+                    <Link href={`/movies/[id]`} as={`/movies/${id}`}>
+                        <a className="play" tabIndex={0}>
+                            <i className="material-icons">play_arrow</i>
+                        </a>
+                    </Link>
+                    <Link href={`/movies/[id]`} as={`/movies/${id}`}>
+                        <a className="read-more" tabIndex={0}>
+                            read more
+                        </a>
+                    </Link>
                     <span className="date">Released: {releaseDate}</span>
                 </div>
             </aside>
