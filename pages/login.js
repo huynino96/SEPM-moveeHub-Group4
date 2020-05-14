@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { NotificationManager } from 'react-notifications';
@@ -13,6 +14,15 @@ import { AUTH_URL } from '../utils/constants';
 const Login = () => {
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit, errors } = useForm();
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = window.localStorage.getItem('token');
+        if (token) {
+            NotificationManager.error('You already Logged In!');
+            router.push('/');
+        }
+    });
 
     const onSubmit = async data => {
         setLoading(true);
@@ -22,6 +32,7 @@ const Login = () => {
             window.localStorage.setItem('token', token);
             window.localStorage.setItem('user', JSON.stringify(user));
             NotificationManager.success('Logged In Successfully!');
+            router.push('/');
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);
         } finally {
@@ -38,12 +49,22 @@ const Login = () => {
                     <div className="col-sm-6">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="form-group">
-                                <label>Email * {errors.email && <Error>(Email is required)</Error>}</label>
-                                <input type="email" name="email" ref={register({ required: true })} />
+                                <label>Email * {errors.email && <Error>({ errors.email.message })</Error>}</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    ref={register({
+                                        required: 'Email is required',
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                            message: 'Invalid email address',
+                                        }
+                                    })}
+                                />
                             </div>
                             <div className="form-group">
-                                <label>Password * {errors.password && <Error>(Password is required)</Error>}</label>
-                                <input type="password" name="password" ref={register({ required: true })} />
+                                <label>Password * {errors.password && <Error>({ errors.password.message })</Error>}</label>
+                                <input type="password" name="password" ref={register({ required: 'Password is required' })} />
                             </div>
                             {!loading && (
                                 <Fragment>
