@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Hero = () => (
+const Hero = ({ title, description, genres, certificate, imageUrl, trailerUrl }) => (
     <div
         id="content_hero"
-        style={{ backgroundImage: "url(http://via.placeholder.com/1440x435)" }}
+        style={{ backgroundImage: `url(${imageUrl})` }}
     >
         <img src="/images/scroll-arrow.svg" alt="Scroll down" className="scroll" />
         {/* Content */}
@@ -17,30 +17,19 @@ const Hero = () => (
                 data-translatey={100}
             >
                 <div className="col-md-9">
-                    <span className="title">Action, Adventure, Sci-Fi</span>
-                    <h1>Transformers: The Last Knight</h1>
-                    <p>
-                        Humans and Transformers are at war, Optimus Prime is gone. The key to
-                        saving our future lies buried in the secrets of the past, in the
-                        hidden history of Transformers on Earth.
-                    </p>
+                    <span className="title">{genres}</span>
+                    <h1>{title}</h1>
+                    <p>{description}</p>
                     <div className="buttons">
-                        <span className="certificate">PG</span>
+                        <span className="certificate">{certificate}</span>
                         <a
-                            href="https://youtu.be/ScMzIvxBSi4"
+                            href={trailerUrl}
                             data-vbtype="video"
                             className="venobox btn btn-default"
                         >
                             <i className="material-icons">play_arrow</i>
                             <span>Play trailer</span>
                         </a>
-                        <div className="star-rating">
-                            <i className="material-icons">star_rate</i>
-                            <i className="material-icons">star_rate</i>
-                            <i className="material-icons">star_rate</i>
-                            <i className="material-icons">star_rate</i>
-                            <i className="material-icons">star_rate</i>
-                        </div>
                     </div>
                 </div>
             </div>

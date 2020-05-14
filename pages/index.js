@@ -73,7 +73,10 @@ const Home = ({ carousels, movies }) => {
 Home.getInitialProps = async () => {
     const { data } = await client.get(`${MOVIE_URL}/popular`, { params: { page: 1 } });
     const { results } = data;
-    return { carousels: results.slice(0, 3), movies: results };
+    return {
+        carousels: results.slice(0, 3),
+        movies: results
+    };
 };
 
 export default Home;
