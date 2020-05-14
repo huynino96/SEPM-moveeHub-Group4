@@ -16,7 +16,7 @@ const MovieTab = ({ title, description, genres, times, duration, certificate, im
                         <i className="material-icons">access_time</i>
                         Viewing times
                     </span>
-                    {times.map(item => <span className="time">{item}</span>)}
+                    {times.map((item, index) => <span key={`time-${index}`} className="time">{item}</span>)}
                 </div>
                 <div className="col-md-4 col-sm-3 running-time">
                     <hr className="space-10" />

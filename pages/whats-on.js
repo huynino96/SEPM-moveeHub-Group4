@@ -37,10 +37,11 @@ const WhatsOn = () => (
                                 <span>Friday, 14 May</span>
                             </li>
                         </ul>
-                        {Object.entries(calendars).map(([key, value]) => (
-                            <div id={key}>
-                                {value.map(item => (
+                        {Object.entries(calendars).map(([key, value], index) => (
+                            <div id={key} key={`calendar-${index}`}>
+                                {value.map((item, index) => (
                                     <MovieTab
+                                        key={`movie-${index}`}
                                         title={item.title}
                                         description={item.description}
                                         genres={item.genres}
