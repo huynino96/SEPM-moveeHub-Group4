@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Head from 'next/head';
+import { NotificationContainer } from 'react-notifications';
 
 import Wrapper from './Partial/Wrapper';
 import Header from './Partial/Header';
@@ -15,6 +16,7 @@ const Layout = ({ children }) => (
             {children}
             <Footer/>
         </Wrapper>
+        <NotificationContainer />
     </Fragment>
 );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-notifications/lib/notifications.css';
 
 import Layout from '../components/Layout';
 
