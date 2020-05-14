@@ -51,14 +51,14 @@ const Header = () => {
                                 <a>What's On</a>
                             </Link>
                         </li>
-                        <li className={pathname === '/forum' ? 'active' : ''}>
-                            <Link href="/forum">
-                                <a>Forum</a>
-                            </Link>
-                        </li>
                         <li className={pathname === '/login' ? 'active' : ''}>
                             <Link href="/login">
                                 <a>Member</a>
+                            </Link>
+                        </li>
+                        <li className={pathname === '/contact' ? 'active' : ''}>
+                            <Link href="/contact">
+                                <a>Contact</a>
                             </Link>
                         </li>
                     </ul>
