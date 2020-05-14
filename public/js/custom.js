@@ -540,7 +540,10 @@ jQuery(function ($) {
 
 		}
 	}
-	maps();
+
+	$(window).on('load', function () {
+		maps();
+	});
 
 	// Live movie search
 	var $rows = $('.movie-tabs');
