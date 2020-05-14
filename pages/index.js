@@ -20,7 +20,7 @@ const Home = ({ carousels, movies }) => {
 
     const loadMoreItems = async () => {
         try {
-            const { data } = await client.get(MOVIE_URL, { params: { page } });
+            const { data } = await client.get(`${MOVIE_URL}/popular`, { params: { page } });
             const { results, total_pages } = data;
             setMores([ ...mores, ...results ]);
             setHasMore(page !== total_pages);
@@ -71,7 +71,7 @@ const Home = ({ carousels, movies }) => {
 };
 
 Home.getInitialProps = async () => {
-    const { data } = await client.get(MOVIE_URL, { params: { page: 1 } });
+    const { data } = await client.get(`${MOVIE_URL}/popular`, { params: { page: 1 } });
     const { results } = data;
     return { carousels: results.slice(0, 3), movies: results };
 };

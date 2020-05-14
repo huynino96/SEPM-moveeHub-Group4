@@ -5,7 +5,7 @@ export const API_KEY = '844dba0bfd8f3a4f3799f6130ef9e335';
 export const API_LANGUAGE = 'en-us';
 
 // ENDPOINTS
-export const MOVIE_URL = '/movie/popular';
+export const MOVIE_URL = '/movie';
 export const SEARCH_URL = '/search/movie';
 
 // Images
