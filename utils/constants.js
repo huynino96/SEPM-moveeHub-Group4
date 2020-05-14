@@ -1,5 +1,7 @@
 // Configuration for API
 export const API_URL = 'https://cms.hubiee.com/hubiee';
+export const ITEM_URL = API_URL + '/items';
+export const AUTH_URL = API_URL + '/auth';
 
 // Configuration for TMDB
 // To se the latest configuration fetch it from https://api.themoviedb.org/3/configuration?api_key=019e8f375549e0bbd4a4191862ebc88f
