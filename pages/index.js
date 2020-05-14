@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import SyncLoader from 'react-spinners/SyncLoader';
-import client from '../client';
+import imdb from '../client/imdb';
 
 import { MOVIE_URL } from '../utils/constants';
 import Loader from '../components/Loader';
@@ -20,7 +20,7 @@ const Home = ({ carousels, movies }) => {
 
     const loadMoreItems = async () => {
         try {
-            const { data } = await client.get(`${MOVIE_URL}/popular`, { params: { page } });
+            const { data } = await imdb.get(`${MOVIE_URL}/popular`, { params: { page } });
             const { results, total_pages } = data;
             setMores([ ...mores, ...results ]);
             setHasMore(page !== total_pages);
@@ -71,7 +71,7 @@ const Home = ({ carousels, movies }) => {
 };
 
 Home.getInitialProps = async () => {
-    const { data } = await client.get(`${MOVIE_URL}/popular`, { params: { page: 1 } });
+    const { data } = await imdb.get(`${MOVIE_URL}/popular`, { params: { page: 1 } });
     const { results } = data;
     return {
         carousels: results.slice(0, 3),

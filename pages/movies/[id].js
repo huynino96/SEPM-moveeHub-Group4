@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import client from '../../client';
+import imdb from '../../client/imdb';
 
 import Hero from '../../components/Hero';
 import { MOVIE_URL } from '../../utils/constants';
@@ -30,8 +30,8 @@ const Movies = ({ item, directors, cast }) => (
 
 Movies.getInitialProps = async ({ query }) => {
     const { id } = query;
-    const { data } = await client.get(`${MOVIE_URL}/${id}`);
-    const credits = await client.get(`${MOVIE_URL}/${id}/credits`);
+    const { data } = await imdb.get(`${MOVIE_URL}/${id}`);
+    const credits = await imdb.get(`${MOVIE_URL}/${id}/credits`);
     const { crew, cast } = credits.data;
     return {
         item: data,
