@@ -22,7 +22,7 @@ const Login = () => {
             NotificationManager.error('You already Logged In!');
             router.push('/');
         }
-    });
+    }, []);
 
     const onSubmit = async data => {
         setLoading(true);
