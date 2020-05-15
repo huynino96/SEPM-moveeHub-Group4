@@ -29,6 +29,7 @@ const Register = () => {
         try {
             delete data.confirm_password;
             data.role = 5; // member
+            data.status = 'active';
             const response = await client.post(`${API_URL}/users`, data);
             const item = response.data.data;
             window.localStorage.setItem('token', JSON.stringify(item));
