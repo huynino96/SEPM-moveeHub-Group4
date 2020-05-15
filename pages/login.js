@@ -69,7 +69,7 @@ const Login = () => {
                             {!loading && (
                                 <Fragment>
                                     <div className="form-group text-center">
-                                        <button className="btn btn-ghost" type="submit">Log In</button>
+                                        <button className="btn btn-ghost">Log In</button>
                                     </div>
                                     <div className="form-group text-center">
                                         Dont have an account ? Sign up <Link href="/register"><a>here</a></Link>
