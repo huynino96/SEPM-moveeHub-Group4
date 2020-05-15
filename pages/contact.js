@@ -12,13 +12,14 @@ import SyncLoader from 'react-spinners/SyncLoader';
 const Contact = () => {
 
     const [loading, setLoading] = useState(false);
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit, errors, reset } = useForm();
 
     const onSubmit = async data => {
         setLoading(true);
         try {
             await client.post(`${ITEM_URL}${CONTACT_COLLECTION}`, data);
             NotificationManager.success('Message Sent Successfully!');
+            reset();
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);
         } finally {
@@ -74,7 +75,7 @@ const Contact = () => {
                                     <button className="btn btn-ghost">Send message</button>
                                 </div>
                             )}
-                            {loading && <Loader key={0} type={<SyncLoader color="#E76115" />} />}
+                            {loading && <Loader key={0} type={<SyncLoader color="#E76115" />} align="text-right" />}
                         </form>
                     </div>
                     <div className="col-sm-5 col-sm-push-1">
