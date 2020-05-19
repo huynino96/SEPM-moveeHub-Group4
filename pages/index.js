@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import SyncLoader from 'react-spinners/SyncLoader';
-import imdb from '../client/imdb';
+import { NotificationManager } from 'react-notifications';
 
+import imdb from '../client/imdb';
 import {MOVIE_PARAM, MOVIE_URL} from '../utils/constants';
 import Loader from '../components/Loader';
 import Carousel from '../components/Carousel';
@@ -27,7 +28,7 @@ const Home = ({ carousels, movies }) => {
             setLoading(true);
             setPage(page + 1);
         } catch (e) {
-            console.log(e);
+            NotificationManager.error('Can not load more movies');
         } finally {
             setLoading(false);
         }
