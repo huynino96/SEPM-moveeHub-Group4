@@ -21,7 +21,6 @@ const Register = () => {
     useEffect(() => {
         const token = window.localStorage.getItem('token');
         if (token) {
-            NotificationManager.error('You already Logged In!');
             router.push(REDIRECT_TO);
         }
     }, []);
