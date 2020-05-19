@@ -21,7 +21,7 @@ const Hero = ({ title, description, genres, certificate, imageUrl, trailerUrl })
                     <h1>{title}</h1>
                     <p>{description}</p>
                     <div className="buttons">
-                        <span className="certificate">{certificate}</span>
+                        <span className="certificate">{certificate === '' ? 'PG' : certificate}</span>
                         <a
                             href={trailerUrl}
                             data-vbtype="video"
