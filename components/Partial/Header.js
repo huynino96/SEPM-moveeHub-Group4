@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import AppContext from '../../context/AppContext';
+
 const Header = () => {
     const { pathname } = useRouter();
+    const { authenticated } = useContext(AppContext);
     return (
         <div className="navbar" role="navigation">
             <div className="heading">
@@ -51,11 +54,20 @@ const Header = () => {
                                 <a>What's On</a>
                             </Link>
                         </li>
-                        <li className={pathname === '/login' ? 'active' : ''}>
-                            <Link href="/login">
-                                <a>Member</a>
-                            </Link>
-                        </li>
+                        {authenticated ? (
+                            <li className={pathname === '/profile' ? 'active' : ''}>
+                                <Link href="/profile">
+                                    <a>Profile</a>
+                                </Link>
+                            </li>
+                        ) : (
+                            <li className={pathname === '/login' ? 'active' : ''}>
+                                <Link href="/login">
+                                    <a>Member</a>
+                                </Link>
+                            </li>
+                        )}
+
                         <li className={pathname === '/contact' ? 'active' : ''}>
                             <Link href="/contact">
                                 <a>Contact</a>

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -6,13 +6,15 @@ import SyncLoader from 'react-spinners/SyncLoader';
 import { NotificationManager } from 'react-notifications';
 
 import client from '../client';
+import AppContext from '../context/AppContext';
 import Backdrop from '../components/Backdrop';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
-import { API_URL } from '../utils/constants';
+import { API_URL, REDIRECT_TO } from '../utils/constants';
 
 const Register = () => {
     const [loading, setLoading] = useState(false);
+    const { setAuthenticated } = useContext(AppContext);
     const { register, handleSubmit, getValues, errors } = useForm();
     const router = useRouter();
 
@@ -20,7 +22,7 @@ const Register = () => {
         const token = window.localStorage.getItem('token');
         if (token) {
             NotificationManager.error('You already Logged In!');
-            router.push('/');
+            router.push(REDIRECT_TO);
         }
     }, []);
 
@@ -35,7 +37,8 @@ const Register = () => {
             window.localStorage.setItem('token', JSON.stringify(item));
             window.localStorage.setItem('user', JSON.stringify(item));
             NotificationManager.success('Signed Up Successfully!');
-            router.push('/');
+            setAuthenticated(true);
+            router.push(REDIRECT_TO);
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);
         } finally {
