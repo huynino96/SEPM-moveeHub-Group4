@@ -2,14 +2,14 @@ import React, { Fragment, useState } from 'react';
 import SyncLoader from 'react-spinners/SyncLoader';
 import imdb from '../client/imdb';
 
-import { MOVIE_URL } from '../utils/constants';
+import {MOVIE_PARAM, MOVIE_URL} from '../utils/constants';
 import Loader from '../components/Loader';
 import Carousel from '../components/Carousel';
 import MovieList from '../components/MovieList';
 import Title from '../components/Title';
 import Poster from '../components/Poster';
 import CarouselItem from '../components/CarouselItem';
-import { backdrop, poster } from '../utils/helpers';
+import {backdrop, poster, youtube, video} from '../utils/helpers';
 import LoadMore from "../components/LoadMore";
 
 const Home = ({ carousels, movies }) => {
@@ -45,10 +45,11 @@ const Home = ({ carousels, movies }) => {
                     <CarouselItem
                         active={index === 0}
                         key={`carousel-${index}`}
-                        title={item.original_title}
+                        title={item.title}
                         description={item.overview}
-                        genres={item.genre_ids.join(', ')}
+                        genres={(item.genres || []).map(element => element.name).join(', ')}
                         imageUrl={backdrop(item.backdrop_path)}
+                        trailerUrl={youtube(video(item))}
                     />
                 ))}
             </Carousel>
@@ -73,8 +74,14 @@ const Home = ({ carousels, movies }) => {
 Home.getInitialProps = async () => {
     const { data } = await imdb.get(`${MOVIE_URL}/popular`, { params: { page: 1 } });
     const { results } = data;
+    const carousels = [];
+    for (const item of results.slice(0, 3)) {
+        const { data } = await imdb.get(`${MOVIE_URL}/${item.id}`, { params: MOVIE_PARAM });
+        carousels.push(data);
+    }
+
     return {
-        carousels: results.slice(0, 3),
+        carousels: carousels,
         movies: results
     };
 };

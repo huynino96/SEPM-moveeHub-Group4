@@ -14,6 +14,9 @@ export const IMDB_LANGUAGE = 'en-us';
 export const MOVIE_URL = '/movie';
 export const SEARCH_URL = '/search/movie';
 
+// MOVIE PARAMS
+export const MOVIE_PARAM = { append_to_response: 'videos,credits' };
+
 // Images
 // An image URL looks like this example:
 // http://image.tmdb.org/t/p/w780/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg
