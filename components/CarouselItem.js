@@ -20,7 +20,7 @@ const CarouselItem = ({ active, title, description, genres, certificate, imageUr
                     <h1>{title}</h1>
                     <p>{description}</p>
                     <div className="buttons">
-                        <span className="certificate">{certificate}</span>
+                        <span className="certificate">{certificate === '' ? 'PG' : certificate}</span>
                         <a
                             href={trailerUrl}
                             className="venobox btn btn-default"

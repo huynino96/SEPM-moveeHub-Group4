@@ -15,7 +15,7 @@ export const MOVIE_URL = '/movie';
 export const SEARCH_URL = '/search/movie';
 
 // MOVIE PARAMS
-export const MOVIE_PARAM = { append_to_response: 'videos,credits' };
+export const MOVIE_PARAM = { append_to_response: 'videos,credits,release_dates' };
 
 // Images
 // An image URL looks like this example:

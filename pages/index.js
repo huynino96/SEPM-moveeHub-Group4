@@ -9,7 +9,7 @@ import MovieList from '../components/MovieList';
 import Title from '../components/Title';
 import Poster from '../components/Poster';
 import CarouselItem from '../components/CarouselItem';
-import {backdrop, poster, youtube, video} from '../utils/helpers';
+import { backdrop, poster, youtube, getCertification } from '../utils/helpers';
 import LoadMore from "../components/LoadMore";
 
 const Home = ({ carousels, movies }) => {
@@ -47,9 +47,10 @@ const Home = ({ carousels, movies }) => {
                         key={`carousel-${index}`}
                         title={item.title}
                         description={item.overview}
+                        certificate={item.certification}
                         genres={(item.genres || []).map(element => element.name).join(', ')}
                         imageUrl={backdrop(item.backdrop_path)}
-                        trailerUrl={youtube(video(item))}
+                        trailerUrl={youtube(item.youtube)}
                     />
                 ))}
             </Carousel>
@@ -76,8 +77,12 @@ Home.getInitialProps = async () => {
     const { results } = data;
     const carousels = [];
     for (const item of results.slice(0, 3)) {
-        const { data } = await imdb.get(`${MOVIE_URL}/${item.id}`, { params: MOVIE_PARAM });
-        carousels.push(data);
+        const response = await imdb.get(`${MOVIE_URL}/${item.id}`, { params: MOVIE_PARAM });
+        const { videos: { results }, release_dates } = response.data;
+        const certification = getCertification(release_dates);
+        response.data.youtube = results.shift().key || '';
+        response.data.certification = certification || '';
+        carousels.push(response.data);
     }
 
     return {

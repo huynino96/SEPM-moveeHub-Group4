@@ -3,16 +3,16 @@ import imdb from '../../client/imdb';
 
 import Hero from '../../components/Hero';
 import {MOVIE_PARAM, MOVIE_URL} from '../../utils/constants';
-import { backdrop, poster, youtube } from '../../utils/helpers';
+import { backdrop, poster, youtube, getCertification } from '../../utils/helpers';
 import Detail from '../../components/Detail';
 
-const Movies = ({ item, directors, cast, trailer }) => (
+const Movies = ({ item, directors, cast, trailer, certification }) => (
     <Fragment>
         <Hero
             title={item.title}
             description={item.overview}
             genres={(item.genres || []).map(element => element.name).join(', ')}
-            certificate="18"
+            certificate={certification}
             imageUrl={backdrop(item.backdrop_path)}
             trailerUrl={youtube(trailer)}
         />
@@ -35,12 +35,15 @@ Movies.getInitialProps = async ({ query }) => {
     const { results } = videos;
     const youtube = results.map(item => item.key);
     const { crew, cast } = credits;
+    const { release_dates } = data;
+    const certification = getCertification(release_dates);
     return {
         item: data,
         directors: crew.filter(item => item.job === 'Director').map(item => item.name),
         cast: cast.map(item => item.name),
         trailer: (youtube || []).shift(),
         trailers: youtube,
+        certification,
     }
 };
 
