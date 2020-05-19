@@ -23,6 +23,7 @@ const CarouselItem = ({ active, title, description, genres, certificate, imageUr
                         <span className="certificate">{certificate === '' ? 'PG' : certificate}</span>
                         <a
                             href={trailerUrl}
+                            data-vbtype="video"
                             className="venobox btn btn-default"
                         >
                             <i className="material-icons">play_arrow</i>

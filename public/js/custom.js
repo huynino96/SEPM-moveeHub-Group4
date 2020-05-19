@@ -22,9 +22,12 @@ jQuery(function ($) {
 	}
 
 	// Venobox modal
-	$('.venobox').venobox({
-		autoplay: true
-	});
+	function venobox() {
+		$('.venobox').venobox({
+			autoplay: true
+		});
+	}
+	venobox();
 
 	$('.social-share').on('click', 'a', function(event) {
 		$(this).hide();
@@ -588,4 +591,5 @@ jQuery(function ($) {
     // Event
 	$(document).arrive('.tabs', tabs);
 	$(document).arrive('#map', maps);
+	$(document).arrive('.venobox', venobox);
 });
