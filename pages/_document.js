@@ -34,7 +34,7 @@ class MyDocument extends Document {
                     <script src="/js/arrive.min.js" />
                     <script src="/js/venobox.min.js" />
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRV18c6Tf7lrtyDmRj_l8m_afOVP1ZnI" />
-                    <script src="js/gmap3.min.js" />
+                    <script src="/js/gmap3.min.js" />
                     <script src="/js/4dfd2d448a.js" />
                     <script src="/js/custom.js" />
                 </body>
