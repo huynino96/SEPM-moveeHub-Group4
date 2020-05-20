@@ -1,12 +1,20 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { NotificationManager } from 'react-notifications';
 
 import AppContext from '../../context/AppContext';
 
 const Header = () => {
     const { pathname } = useRouter();
-    const { authenticated } = useContext(AppContext);
+    const { authenticated, setAuthenticated } = useContext(AppContext);
+
+    const handleLogOut = () => {
+        NotificationManager.success('Logged Out Successfully!');
+        window.localStorage.removeItem('token');
+        setAuthenticated(false)
+    };
+
     return (
         <div className="navbar" role="navigation">
             <div className="heading">
@@ -55,10 +63,13 @@ const Header = () => {
                             </Link>
                         </li>
                         {authenticated ? (
-                            <li className={pathname === '/profile' ? 'active' : ''}>
+                            <li className={pathname === '/profile' ? 'dropdown active' : 'dropdown'}>
                                 <Link href="/profile">
                                     <a>Profile</a>
                                 </Link>
+                                <ul className="dropdown-menu">
+                                    <li><a role="button" onClick={handleLogOut}>Log out</a></li>
+                                </ul>
                             </li>
                         ) : (
                             <li className={pathname === '/login' ? 'active' : ''}>

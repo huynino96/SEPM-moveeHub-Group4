@@ -5,7 +5,8 @@ export const AUTH_URL = API_URL + '/auth';
 export const CONTACT_COLLECTION = '/contacts';
 
 // Redirect to page after authenticated successfully
-export const REDIRECT_TO = '/profile';
+export const REDIRECT_TO_PROFILE = '/profile';
+export const REDIRECT_TO_LOGIN = '/login';
 
 // Configuration for TMDB
 // To se the latest configuration fetch it from https://api.themoviedb.org/3/configuration?api_key=019e8f375549e0bbd4a4191862ebc88f

@@ -10,18 +10,18 @@ import AppContext from '../context/AppContext';
 import Backdrop from '../components/Backdrop';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
-import { AUTH_URL, REDIRECT_TO } from '../utils/constants';
+import { AUTH_URL, REDIRECT_TO_PROFILE } from '../utils/constants';
 
 const Login = () => {
     const [loading, setLoading] = useState(false);
     const { setAuthenticated } = useContext(AppContext);
     const { register, handleSubmit, errors } = useForm();
-    const router = useRouter();
+    const { push } = useRouter();
 
     useEffect(() => {
         const token = window.localStorage.getItem('token');
         if (token) {
-            router.push(REDIRECT_TO);
+            push(REDIRECT_TO_PROFILE);
         }
     }, []);
 
@@ -29,12 +29,10 @@ const Login = () => {
         setLoading(true);
         try {
             const response = await client.post(`${AUTH_URL}/authenticate`, data);
-            const { token, user } = response.data.data;
-            window.localStorage.setItem('token', token);
-            window.localStorage.setItem('user', JSON.stringify(user));
             NotificationManager.success('Logged In Successfully!');
+            window.localStorage.setItem('token', response.data.data.token);
             setAuthenticated(true);
-            router.push(REDIRECT_TO);
+            push(REDIRECT_TO_PROFILE);
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);
         } finally {

@@ -10,18 +10,18 @@ import AppContext from '../context/AppContext';
 import Backdrop from '../components/Backdrop';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
-import { API_URL, REDIRECT_TO } from '../utils/constants';
+import { API_URL, REDIRECT_TO_PROFILE } from '../utils/constants';
 
 const Register = () => {
     const [loading, setLoading] = useState(false);
     const { setAuthenticated } = useContext(AppContext);
     const { register, handleSubmit, getValues, errors } = useForm();
-    const router = useRouter();
+    const { push } = useRouter();
 
     useEffect(() => {
         const token = window.localStorage.getItem('token');
         if (token) {
-            router.push(REDIRECT_TO);
+            push(REDIRECT_TO_PROFILE);
         }
     }, []);
 
@@ -32,12 +32,10 @@ const Register = () => {
             data.role = 5; // member
             data.status = 'active';
             const response = await client.post(`${API_URL}/users`, data);
-            const item = response.data.data;
-            window.localStorage.setItem('token', JSON.stringify(item));
-            window.localStorage.setItem('user', JSON.stringify(item));
             NotificationManager.success('Signed Up Successfully!');
+            window.localStorage.setItem('token', response.data.data.token);
             setAuthenticated(true);
-            router.push(REDIRECT_TO);
+            push(REDIRECT_TO_PROFILE);
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);
         } finally {
