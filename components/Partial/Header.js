@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { NotificationManager } from 'react-notifications';
@@ -6,8 +6,8 @@ import { NotificationManager } from 'react-notifications';
 import AppContext from '../../context/AppContext';
 
 const Header = () => {
+    const { authenticated, setAuthenticated, modalSearch, setModalSearch } = useContext(AppContext);
     const { pathname } = useRouter();
-    const { authenticated, setAuthenticated } = useContext(AppContext);
 
     const handleLogOut = () => {
         NotificationManager.success('Logged Out Successfully!');
@@ -22,7 +22,7 @@ const Header = () => {
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="search">
-                                <a href="#">
+                                <a onClick={() => setModalSearch(!modalSearch)}>
                                     <i className="material-icons">search</i>
                                 </a>
                             </div>

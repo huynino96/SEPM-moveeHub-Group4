@@ -1024,18 +1024,7 @@ a.arrow-button:hover {
 }
 
 .slick-slide {
-    margin: 0 15px;
     text-align: center;
-}
-
-.movie-slide:nth-child(2),
-.movie-slide:nth-child(4n+2) {
-    margin-left: 0;
-}
-
-.movie-slide:nth-child(4n+1) {
-    margin-right: 0;
-    margin-left: 13px;
 }
 
 .slick-slider .slick-arrow {
@@ -3138,4 +3127,108 @@ footer .copyright a:hover {
     .tabs.pill-style ul li:last-of-type a {
         border-radius: 0 0 30px 30px;
     }
+}
+
+/* Search Modal */
+.search-overlay {
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 99999999;
+}
+
+.search-modal {
+    background: transparent;
+    width: 100%;
+    box-shadow: none;
+    margin: 0 auto;
+    max-width: 950px;
+}
+
+.search-modal .entry-header .entry-title,
+.search-modal .entry-header .entry-title > a {
+    color: #fff;
+}
+
+.search-modal .search-title {
+    color: #fff;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0 0 .5rem 0;
+    padding: 0;
+    border-bottom: none;
+    position: static;
+    font-size: 2rem;
+}
+
+.search-modal .search-title:after {
+    content: none;
+}
+
+.search-modal .search-field {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.search-modal .search-input {
+    background: transparent;
+    border-bottom: 1px solid #fff;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    width: 100%;
+    margin: 25px 0;
+    font-size: 40px;
+    letter-spacing: 1px;
+    padding-left: 0;
+    color: #fff;
+    outline: none;
+}
+
+.search-modal .search-input:focus {
+    color: #fff;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+.search-modal .search-result {
+    margin-top: 3rem;
+}
+
+.search-modal .search-close {
+    color: #fff;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.search-loading {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.search-load-more {
+    border: 1px solid #fff;
+    border-radius: 4px;
+    display: inline-block;
+    font: 11px/60px 'Helvetica', Arial, Tahoma, Verdana, sans-serif;
+    font-weight: 700;
+    letter-spacing: .05em;
+    margin: 30px auto 0;
+    padding: 0 40px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .3s;
+    min-width: 170px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.search-load-more:active,
+.search-load-more:focus,
+.search-load-more:hover {
+    color: #333;
+    background: #e9eaed;
 }

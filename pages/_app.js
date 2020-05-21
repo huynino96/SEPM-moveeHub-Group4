@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 
 const MyApp = ({ Component, pageProps }) => {
     const [authenticated, setAuthenticated] = useState(false);
+    const [modalSearch, setModalSearch] = useState(false);
 
     useEffect(() => {
         const token = window.localStorage.getItem('token');
@@ -13,7 +14,7 @@ const MyApp = ({ Component, pageProps }) => {
     }, []);
 
     return (
-        <AppContext.Provider value={{ authenticated, setAuthenticated }}>
+        <AppContext.Provider value={{ authenticated, setAuthenticated, modalSearch, setModalSearch }}>
             <Layout>
                 <Component {...pageProps} />
             </Layout>
