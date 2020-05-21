@@ -12,20 +12,6 @@ const Detail = ({ title, description, directors, cast, releaseDate, duration, im
                             alt="Transformers: The Last Knight"
                             className="poster"
                         />
-                        <div className="share">
-                            <a href="#">
-                                <i className="fa fa-facebook" />
-                            </a>
-                            <a href="#">
-                                <i className="fa fa-twitter" />
-                            </a>
-                            <a href="#">
-                                <i className="fa fa-pinterest" />
-                            </a>
-                            <a href="#">
-                                <i className="fa fa-google-plus" />
-                            </a>
-                        </div>
                     </div>
                     <div className="col-sm-9">
                         <h3 className="no-underline">{title}</h3>
