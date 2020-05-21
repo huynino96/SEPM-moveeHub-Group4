@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ClipLoader } from 'react-spinners';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic';
 
@@ -20,6 +20,11 @@ const ModalFullScreenSearch = ({ modal, toggle }) => {
     const [hasMore, setHasMore] = useState(false);
     const [page, setPage] = useState(1);
     const [keyword, setKeyword] = useState('');
+    const { pathname } = useRouter();
+
+    useEffect(() => {
+        handleClose();
+    }, [pathname]);
 
     const handleClose = () => {
         setItems([]);
@@ -27,7 +32,7 @@ const ModalFullScreenSearch = ({ modal, toggle }) => {
         setHasMore(false);
         setPage(1);
         setKeyword('');
-        toggle();
+        toggle(false);
     };
 
     const handleSearch = async event => {

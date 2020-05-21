@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
                 {children}
                 <Footer/>
             </Wrapper>
-            <ModalFullScreenSearch modal={modalSearch} toggle={() => setModalSearch(!modalSearch)} />
+            <ModalFullScreenSearch modal={modalSearch} toggle={setModalSearch} />
             <NotificationContainer />
         </Fragment>
     );
