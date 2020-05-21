@@ -4,12 +4,7 @@ import Link from 'next/link';
 const Poster = ({ id, title, imageUrl, releaseDate }) => (
     <div
         className="movie-slide slick-slide slick-current slick-active"
-        data-slick-index={0}
-        aria-hidden="false"
-        tabIndex={-1}
-        role="option"
-        aria-describedby="slick-slide00"
-        style={{ width: 263, height: 470, display: 'block' }}
+        style={{ width: '100%', height: 470, display: 'block' }}
     >
         <div className="movie-poster">
             <aside>
