@@ -16,7 +16,7 @@ const Profile = () => {
         }
     }, [authenticated]);
 
-    return <Backdrop title="Write review? Let's" subtitle="Login" imageUrl="/images/hero-3.jpg" />
+    return <Backdrop title="Your information and comments" subtitle="Profile" imageUrl="/images/hero-3.jpg" />
 };
 
 export default Profile;
