@@ -17,7 +17,7 @@ const Contact = () => {
     const onSubmit = async data => {
         try {
             setLoading(true);
-            await client.post(`${ITEM_URL}${CONTACT_COLLECTION}`, data);
+            await client.post(`${ITEM_URL}/${CONTACT_COLLECTION}`, data);
             NotificationManager.success('Message Sent Successfully!');
             reset();
         } catch (e) {

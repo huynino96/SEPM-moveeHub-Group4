@@ -7,7 +7,7 @@ import SyncLoader from 'react-spinners/SyncLoader';
 
 import auth from '../client/auth';
 import AppContext from '../context/AppContext';
-import { API_URL, COMMENT_PARAM, REDIRECT_TO_LOGIN } from '../utils/constants';
+import { API_URL, ITEM_URL, COMMENT_COLLECTION, COMMENT_PARAM, REDIRECT_TO_LOGIN } from '../utils/constants';
 import { avatar } from '../utils/helpers';
 import Backdrop from '../components/Backdrop';
 import Title from '../components/Title';
@@ -60,7 +60,7 @@ const Profile = () => {
     const fetchComments = async () => {
         try {
             setLoadingComment(true);
-            const { data: { data } } = await auth.get(`${API_URL}/items/comments`, { params: COMMENT_PARAM });
+            const { data: { data } } = await auth.get(`${ITEM_URL}/${COMMENT_COLLECTION}`, { params: COMMENT_PARAM });
             setComments(data);
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);

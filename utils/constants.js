@@ -2,7 +2,8 @@
 export const API_URL = 'https://cms.hubiee.com/hubiee';
 export const ITEM_URL = API_URL + '/items';
 export const AUTH_URL = API_URL + '/auth';
-export const CONTACT_COLLECTION = '/contacts';
+export const CONTACT_COLLECTION = 'contacts';
+export const COMMENT_COLLECTION = 'comments';
 
 // Redirect to page after authenticated successfully
 export const REDIRECT_TO_PROFILE = '/profile';
@@ -21,7 +22,7 @@ export const SEARCH_URL = '/search/movie';
 // MOVIE PARAMS
 export const MOVIE_PARAM = { append_to_response: 'videos,credits,release_dates' };
 export const PROFILE_PARAM = { fields: 'id,first_name,last_name,email,avatar.private_hash' };
-export const COMMENT_PARAM = { fields : '*,owner.email' };
+export const COMMENT_PARAM = { fields : '*,owner.email', sort: '-created_on' };
 
 // Images
 // An image URL looks like this example:
