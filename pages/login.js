@@ -10,7 +10,7 @@ import AppContext from '../context/AppContext';
 import Backdrop from '../components/Backdrop';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
-import { AUTH_URL, REDIRECT_TO_PROFILE } from '../utils/constants';
+import { API_URL, AUTH_URL, PROFILE_PARAM, REDIRECT_TO_PROFILE } from '../utils/constants';
 
 const Login = () => {
     const [loading, setLoading] = useState(false);
@@ -25,15 +25,19 @@ const Login = () => {
         }
     }, []);
 
-    const onSubmit = async data => {
+    const onSubmit = async item => {
         try {
             setLoading(true);
-            const response = await client.post(`${AUTH_URL}/authenticate`, data);
+            const { data: { data: { token } } } = await client.post(`${AUTH_URL}/authenticate`, item);
+            window.localStorage.setItem('token', JSON.stringify(token));
+            const { data: { data } } = await client.get(`${API_URL}/users/me`, { params: PROFILE_PARAM });
+            window.localStorage.setItem('user', JSON.stringify(data));
             NotificationManager.success('Logged In Successfully!');
-            window.localStorage.setItem('token', response.data.data.token);
             setAuthenticated(true);
             push(REDIRECT_TO_PROFILE);
         } catch (e) {
+            window.localStorage.removeItem('token');
+            window.localStorage.removeItem('user');
             NotificationManager.error(e.response.data.error.message);
         } finally {
             setLoading(false);

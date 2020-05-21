@@ -10,7 +10,7 @@ import AppContext from '../context/AppContext';
 import Backdrop from '../components/Backdrop';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
-import { API_URL, REDIRECT_TO_PROFILE } from '../utils/constants';
+import { API_URL, REDIRECT_TO_PROFILE, REDIRECT_TO_LOGIN } from '../utils/constants';
 
 const Register = () => {
     const [loading, setLoading] = useState(false);
@@ -25,23 +25,23 @@ const Register = () => {
         }
     }, []);
 
-    const onSubmit = async data => {
+    const onSubmit = async item => {
         try {
             setLoading(true);
-            delete data.confirm_password;
-            data.role = 5; // member
-            data.status = 'active';
-            const response = await client.post(`${API_URL}/users`, data);
+            delete item.confirm_password;
+            item.role = 5; // member
+            item.status = 'active';
+            await client.post(`${API_URL}/users`, item);
             NotificationManager.success('Signed Up Successfully!');
-            window.localStorage.setItem('token', response.data.data.token);
             setAuthenticated(true);
-            push(REDIRECT_TO_PROFILE);
+            push(REDIRECT_TO_LOGIN);
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);
         } finally {
             setLoading(false);
         }
     };
+
     return (
         <Fragment>
             <Backdrop title="Don't have account? Let's" subtitle="Register" imageUrl="/images/hero-4.jpg" />

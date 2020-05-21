@@ -12,6 +12,7 @@ const Header = () => {
     const handleLogOut = () => {
         NotificationManager.success('Logged Out Successfully!');
         window.localStorage.removeItem('token');
+        window.localStorage.removeItem('user');
         setAuthenticated(false)
     };
 

@@ -20,6 +20,8 @@ export const SEARCH_URL = '/search/movie';
 
 // MOVIE PARAMS
 export const MOVIE_PARAM = { append_to_response: 'videos,credits,release_dates' };
+export const PROFILE_PARAM = { fields: 'id,first_name,last_name,email,avatar.private_hash' };
+export const COMMENT_PARAM = { fields : '*,owner.email' };
 
 // Images
 // An image URL looks like this example:
