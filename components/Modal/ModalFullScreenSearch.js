@@ -5,17 +5,28 @@ import dynamic from 'next/dynamic';
 
 import imdb from '../../client/imdb';
 import { poster } from '../../utils/helpers';
-import { SEARCH_URL } from '../../utils/constants';
+import {MOVIE_URL, SEARCH_URL} from '../../utils/constants';
 import Poster from '../Poster';
+import LoadMore from "../LoadMore";
+import {NotificationManager} from "react-notifications";
+import Loader from "../Loader";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const Modal = dynamic(() => import('react-responsive-modal'), { ssr: false });
 
 const ModalFullScreenSearch = ({ modal, toggle }) => {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(false);
+    const [page, setPage] = useState(1);
+    const [keyword, setKeyword] = useState('');
 
     const handleClose = () => {
         setItems([]);
+        setLoading(false);
+        setHasMore(false);
+        setPage(1);
+        setKeyword('');
         toggle();
     };
 
@@ -31,11 +42,34 @@ const ModalFullScreenSearch = ({ modal, toggle }) => {
         // Search movie by keyword
         try {
             setLoading(true);
-            const { data: { results } } = await imdb.get(SEARCH_URL, { params: { page: 1, query: keyword } });
+            const response = await imdb.get(SEARCH_URL, { params: { page , query: keyword } });
+            const { data: { results, total_pages } } = response;
             setItems(results);
+            setHasMore(page <= total_pages);
+            setKeyword(keyword);
         } finally {
             setLoading(false);
         }
+    };
+
+    const loadMoreItems = async () => {
+        try {
+            const nextPage = page + 1;
+            const { data } = await imdb.get(`${MOVIE_URL}/popular`, { params: { page: nextPage, query: keyword } });
+            const { results, total_pages } = data;
+            setItems([ ...items, ...results ]);
+            setHasMore(page <= total_pages);
+            setPage(nextPage);
+        } catch (e) {
+            NotificationManager.error('Can not load more movies');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleLoadMoreItems = () => {
+        setLoading(true);
+        setTimeout(async () => await loadMoreItems(), 500);
     };
 
     return (
@@ -64,28 +98,23 @@ const ModalFullScreenSearch = ({ modal, toggle }) => {
                         />
                     </p>
                 </form>
-                {loading && (
-                    <div className="search-loading">
-                        <ClipLoader size={120} color="#fff" />
+                <div className="search-result">
+                    <div className="row">
+                        {items.map((item, index) => (
+                            <div className="col-lg-4 col-md-6 col-sm-6">
+                                <Poster
+                                    key={`movie-${index}`}
+                                    id={item.id}
+                                    title={item.title}
+                                    imageUrl={poster(item.poster_path)}
+                                    releaseDate={item.release_date}
+                                />
+                            </div>
+                        ))}
                     </div>
-                )}
-                {!loading && (
-                    <div className="search-result">
-                        <div className="row">
-                            {items.map((item, index) => (
-                                <div className="col-lg-4 col-md-6 col-sm-6">
-                                    <Poster
-                                        key={`movie-${index}`}
-                                        id={item.id}
-                                        title={item.title}
-                                        imageUrl={poster(item.poster_path)}
-                                        releaseDate={item.release_date}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                </div>
+                {loading && <Loader key={0} type={<SyncLoader color="#E76115" />} />}
+                {(hasMore && !loading) && <LoadMore onClick={handleLoadMoreItems} />}
             </section>
         </Modal>
     );

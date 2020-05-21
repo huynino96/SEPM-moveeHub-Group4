@@ -22,11 +22,10 @@ const Home = ({ carousels, movies }) => {
 
     const loadMoreItems = async () => {
         try {
-            setLoading(true);
             const { data } = await imdb.get(`${MOVIE_URL}/popular`, { params: { page } });
             const { results, total_pages } = data;
             setMores([ ...mores, ...results ]);
-            setHasMore(page !== total_pages);
+            setHasMore(page <= total_pages);
             setPage(page + 1);
         } catch (e) {
             NotificationManager.error('Can not load more movies');
