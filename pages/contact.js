@@ -15,8 +15,8 @@ const Contact = () => {
     const { register, handleSubmit, errors, reset } = useForm();
 
     const onSubmit = async data => {
-        setLoading(true);
         try {
+            setLoading(true);
             await client.post(`${ITEM_URL}${CONTACT_COLLECTION}`, data);
             NotificationManager.success('Message Sent Successfully!');
             reset();

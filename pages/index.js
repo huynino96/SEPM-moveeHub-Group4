@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { NotificationManager } from 'react-notifications';
+import { Row, Col } from 'reactstrap';
 
 import imdb from '../client/imdb';
 import {MOVIE_PARAM, MOVIE_URL} from '../utils/constants';
@@ -11,7 +12,7 @@ import Title from '../components/Title';
 import Poster from '../components/Poster';
 import CarouselItem from '../components/CarouselItem';
 import { backdrop, poster, youtube, getCertification } from '../utils/helpers';
-import LoadMore from "../components/LoadMore";
+import LoadMore from '../components/LoadMore';
 
 const Home = ({ carousels, movies }) => {
     const [mores, setMores] = useState(movies);
@@ -21,11 +22,11 @@ const Home = ({ carousels, movies }) => {
 
     const loadMoreItems = async () => {
         try {
+            setLoading(true);
             const { data } = await imdb.get(`${MOVIE_URL}/popular`, { params: { page } });
             const { results, total_pages } = data;
             setMores([ ...mores, ...results ]);
             setHasMore(page !== total_pages);
-            setLoading(true);
             setPage(page + 1);
         } catch (e) {
             NotificationManager.error('Can not load more movies');
@@ -57,15 +58,19 @@ const Home = ({ carousels, movies }) => {
             </Carousel>
             <MovieList>
                 <Title>New In</Title>
-                {mores.map((item, index) => (
-                    <Poster
-                        key={`movie-${index}`}
-                        id={item.id}
-                        title={item.title}
-                        imageUrl={poster(item.poster_path)}
-                        releaseDate={item.release_date}
-                    />
-                ))}
+                <Row>
+                    {mores.map((item, index) => (
+                        <Col lg={3} md={5} sm={5}>
+                            <Poster
+                                key={`movie-${index}`}
+                                id={item.id}
+                                title={item.title}
+                                imageUrl={poster(item.poster_path)}
+                                releaseDate={item.release_date}
+                            />
+                        </Col>
+                    ))}
+                </Row>
                 {(hasMore && !loading) && <LoadMore onClick={handleLoadMoreItems} />}
                 {loading && <Loader key={0} type={<SyncLoader color="#E76115" />} />}
             </MovieList>

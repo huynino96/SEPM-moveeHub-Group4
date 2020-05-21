@@ -26,8 +26,8 @@ const Register = () => {
     }, []);
 
     const onSubmit = async data => {
-        setLoading(true);
         try {
+            setLoading(true);
             delete data.confirm_password;
             data.role = 5; // member
             data.status = 'active';

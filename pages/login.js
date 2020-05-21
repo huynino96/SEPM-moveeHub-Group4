@@ -26,8 +26,8 @@ const Login = () => {
     }, []);
 
     const onSubmit = async data => {
-        setLoading(true);
         try {
+            setLoading(true);
             const response = await client.post(`${AUTH_URL}/authenticate`, data);
             NotificationManager.success('Logged In Successfully!');
             window.localStorage.setItem('token', response.data.data.token);
