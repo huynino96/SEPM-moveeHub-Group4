@@ -7,7 +7,7 @@ import calendars from '../utils/calendars';
 const WhatsOn = () => (
     <Fragment>
         <Backdrop title="Take a look at" subtitle="What's on this week" imageUrl="/images/hero-1.jpg" />
-        <div className="container section">
+        <div className="container section" id="afterHeader">
             <div className="row">
                 <div className="col-sm-12">
                     <div className="tabs movies">

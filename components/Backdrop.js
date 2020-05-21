@@ -5,7 +5,11 @@ const Backdrop = ({ title, subtitle, imageUrl, scroll }) => (
         id="content_hero"
         style={{ backgroundImage: `url(${imageUrl})` }}
     >
-        {scroll && <img src="/images/scroll-arrow.svg" alt="Scroll down" className="scroll" />}
+        {scroll && (
+            <a href="#afterHeader" className="anchor">
+                <img src="/images/scroll-arrow.svg" alt="Scroll down" className="scroll" />
+            </a>
+        )}
         {/* Content */}
         <div className="container">
             <div

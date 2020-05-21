@@ -45,7 +45,7 @@ const Register = () => {
     return (
         <Fragment>
             <Backdrop title="Don't have account? Let's" subtitle="Register" imageUrl="/images/hero-4.jpg" />
-            <div className="container section">
+            <div className="container section" id="afterHeader">
                 <div className="row">
                     <div className="col-sm-3" />
                     <div className="col-sm-6">
