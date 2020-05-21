@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { NotificationManager } from 'react-notifications';
 
-import client from '../client';
+import auth from '../client/auth';
 import AppContext from '../context/AppContext';
 import Backdrop from '../components/Backdrop';
 import Loader from '../components/Loader';
@@ -31,7 +31,7 @@ const Register = () => {
             delete item.confirm_password;
             item.role = 5; // member
             item.status = 'active';
-            await client.post(`${API_URL}/users`, item);
+            await auth.post(`${API_URL}/users`, item);
             NotificationManager.success('Signed Up Successfully!');
             setAuthenticated(true);
             push(REDIRECT_TO_LOGIN);

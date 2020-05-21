@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { NotificationManager } from 'react-notifications';
 import SyncLoader from 'react-spinners/SyncLoader';
 
-import client from '../client';
+import auth from '../client/auth';
 import AppContext from '../context/AppContext';
 import { API_URL, COMMENT_PARAM, REDIRECT_TO_LOGIN } from '../utils/constants';
 import { avatar } from '../utils/helpers';
@@ -47,7 +47,7 @@ const Profile = () => {
         try {
             setLoadingButton(true);
             if (item.password === '') delete item.password;
-            const { data: { data } } = await client.patch(`${API_URL}/users/${user.id}`, item);
+            const { data: { data } } = await auth.patch(`${API_URL}/users/${user.id}`, item);
             window.localStorage.setItem('user', JSON.stringify(data));
             NotificationManager.success('Saved Profile Successfully!');
         } catch (e) {
@@ -60,7 +60,7 @@ const Profile = () => {
     const fetchComments = async () => {
         try {
             setLoadingComment(true);
-            const { data: { data } } = await client.get(`${API_URL}/items/comments`, { params: COMMENT_PARAM });
+            const { data: { data } } = await auth.get(`${API_URL}/items/comments`, { params: COMMENT_PARAM });
             setComments(data);
         } catch (e) {
             NotificationManager.error(e.response.data.error.message);

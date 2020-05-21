@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { NotificationManager } from 'react-notifications';
 
-import client from '../client';
+import auth from '../client/auth';
 import AppContext from '../context/AppContext';
 import Backdrop from '../components/Backdrop';
 import Loader from '../components/Loader';
@@ -28,9 +28,9 @@ const Login = () => {
     const onSubmit = async item => {
         try {
             setLoading(true);
-            const { data: { data: { token } } } = await client.post(`${AUTH_URL}/authenticate`, item);
+            const { data: { data: { token } } } = await auth.post(`${AUTH_URL}/authenticate`, item);
             window.localStorage.setItem('token', JSON.stringify(token));
-            const { data: { data } } = await client.get(`${API_URL}/users/me`, { params: PROFILE_PARAM });
+            const { data: { data } } = await auth.get(`${API_URL}/users/me`, { params: PROFILE_PARAM });
             window.localStorage.setItem('user', JSON.stringify(data));
             NotificationManager.success('Logged In Successfully!');
             setAuthenticated(true);
