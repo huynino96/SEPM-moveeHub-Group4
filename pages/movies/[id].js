@@ -51,6 +51,24 @@ const Movies = ({ item, directors, cast, trailer, certification, comments }) => 
         }
     };
 
+    const handleLike = async (id, liked) => {
+        try {
+            await auth.patch(`${ITEM_URL}/${COMMENT_COLLECTION}/${id}`, { liked: !liked });
+            const items = [...mores]
+                .map(item => {
+                    if (item.id === id) {
+                        item.liked = !liked;
+                    }
+                    return item;
+                });
+            setMores(items);
+        } catch (e) {
+            NotificationManager.error(e.response.data.error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Fragment>
             <Hero
@@ -78,10 +96,13 @@ const Movies = ({ item, directors, cast, trailer, certification, comments }) => 
                             {mores.map((item, index) => (
                                 <Comment
                                     key={`comment-${index}`}
+                                    id={item.id}
                                     name={item.owner.email}
                                     comment={item.comment}
                                     date={item.created_on}
                                     imageUrl={avatar(item.owner.email)}
+                                    like={item.liked}
+                                    onLike={handleLike}
                                 />
                             ))}
                         </Comments>

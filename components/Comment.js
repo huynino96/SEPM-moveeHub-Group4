@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Comment = ({ name, comment, date, imageUrl }) => (
+const Comment = ({ id, name, comment, date, imageUrl, like, onLike }) => (
     <div className="row">
         <div className="col-sm-2">
             <img src={imageUrl} alt="avatar" style={{ borderRadius: '50%' }} />
@@ -9,6 +9,27 @@ const Comment = ({ name, comment, date, imageUrl }) => (
             <span className="date">{date}</span>
             <h4 className="no-underline">{name}</h4>
             <p>{comment}</p>
+            {typeof like !== "undefined" && (
+                <span className="action">
+                    {like ? (
+                        <i
+                            className="material-icons"
+                            style={{ color: '#e74c3c', cursor: 'pointer' }}
+                            onClick={() => onLike(id, like)}
+                        >
+                            favorite
+                        </i>
+                    ) : (
+                        <i
+                            className="material-icons"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => onLike(id, like)}
+                        >
+                            favorite_border
+                        </i>
+                    )}
+                </span>
+            )}
         </div>
     </div>
 );
@@ -18,6 +39,7 @@ Comment.defaultProps = {
     comment: '',
     date: '',
     imageUrl: '/images/avatar.png',
+    onLike: () => {},
 };
 
 export default Comment;
