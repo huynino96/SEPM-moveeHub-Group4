@@ -34,7 +34,7 @@ const WhatsOn = () => (
                                 <a href="#thu">Thu</a>
                             </li>
                             <li className="date">
-                                <span>Friday, 14 May</span>
+                                <span>Friday, 22 May</span>
                             </li>
                         </ul>
                         {Object.entries(calendars).map(([key, value], index) => (
