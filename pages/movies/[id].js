@@ -101,6 +101,7 @@ const Movies = ({ item, directors, cast, trailer, certification, comments }) => 
                                     comment={item.comment}
                                     date={item.created_on}
                                     imageUrl={avatar(item.owner.email)}
+                                    canAction={user !== null}
                                     like={item.liked}
                                     onLike={handleLike}
                                 />

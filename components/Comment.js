@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Comment = ({ id, name, comment, date, imageUrl, like, onLike }) => (
+const Comment = ({ id, name, comment, date, imageUrl, canAction, like, onLike }) => (
     <div className="row">
         <div className="col-sm-2">
             <img src={imageUrl} alt="avatar" style={{ borderRadius: '50%' }} />
@@ -9,7 +9,7 @@ const Comment = ({ id, name, comment, date, imageUrl, like, onLike }) => (
             <span className="date">{date}</span>
             <h4 className="no-underline">{name}</h4>
             <p>{comment}</p>
-            {typeof like !== "undefined" && (
+            {(typeof like !== "undefined" && canAction) && (
                 <span className="action">
                     {like ? (
                         <i
