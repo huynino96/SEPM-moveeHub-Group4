@@ -20,11 +20,11 @@ const ModalFullScreenSearch = ({ modal, toggle }) => {
     const [hasMore, setHasMore] = useState(false);
     const [page, setPage] = useState(1);
     const [keyword, setKeyword] = useState('');
-    const { pathname } = useRouter();
+    const { asPath } = useRouter();
 
     useEffect(() => {
         handleClose();
-    }, [pathname]);
+    }, [asPath]);
 
     const handleClose = () => {
         setItems([]);

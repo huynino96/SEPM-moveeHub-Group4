@@ -24,13 +24,13 @@ const Movies = ({ item, directors, cast, trailer, certification, comments }) => 
     const [user, setUser] = useState({});
     const [mores, setMores] = useState(comments);
     const { register, handleSubmit, errors, reset } = useForm();
-    const { query: { id } } = useRouter();
+    const { query: { id }, asPath } = useRouter();
 
     useEffect(() => {
         if (comments.length <= 0) {
             setMores([]);
         }
-    }, [window.location.pathname]);
+    }, [asPath]);
 
     useEffect(() => {
         setUser(JSON.parse(window.localStorage.getItem('user')));
