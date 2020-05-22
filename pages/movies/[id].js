@@ -9,7 +9,7 @@ import { NotificationManager } from 'react-notifications';
 import imdb from '../../client/imdb';
 import auth from '../../client/auth';
 import client from '../../client';
-import { API_URL, COMMENT_COLLECTION, COMMENT_PARAM, ITEM_URL, MOVIE_PARAM, MOVIE_URL } from '../../utils/constants';
+import { COMMENT_COLLECTION, COMMENT_PARAM, ITEM_URL, MOVIE_PARAM, MOVIE_URL } from '../../utils/constants';
 import { backdrop, poster, youtube, getCertification, avatar } from '../../utils/helpers';
 import Hero from '../../components/Hero';
 import Detail from '../../components/Detail';
@@ -25,6 +25,12 @@ const Movies = ({ item, directors, cast, trailer, certification, comments }) => 
     const [mores, setMores] = useState(comments);
     const { register, handleSubmit, errors, reset } = useForm();
     const { query: { id } } = useRouter();
+
+    useEffect(() => {
+        if (comments.length <= 0) {
+            setMores([]);
+        }
+    }, [window.location.pathname]);
 
     useEffect(() => {
         setUser(JSON.parse(window.localStorage.getItem('user')));
